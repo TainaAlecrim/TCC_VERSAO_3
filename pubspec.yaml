@@ -1,0 +1,29 @@
+name: flutter_login_demo
+description: A new Flutter project.
+
+dependencies:
+  flutter:
+    sdk: flutter
+  curved_navigation_bar: ^0.3.4 #latest version
+  cupertino_icons: ^0.1.2
+  firebase_auth: ^0.14.0+5
+  firebase_database: ^3.0.7
+  intl: ^0.16.0
+  intl_translation: ^0.17.0
+  flutter_holo_date_picker: ^0.2.1
+  datetime_picker_formfield: ^1.0.0
+  date_field: ^ 0.1.2
+  cloud_firestore: ^0.13.4+1
+ 
+  date_format: ^1.0.4
+
+dev_dependencies:
+  flutter_test:
+    
+    sdk: flutter
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/flutter-icon.png
