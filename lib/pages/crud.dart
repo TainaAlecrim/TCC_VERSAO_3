@@ -20,4 +20,20 @@ Future<void> addFicha(FichaD) async {
    });
 }
 
+Future<void> addHospitalizacoes(Hospitalizacoes) async {
+
+   Firestore.instance.collection('Hospitalizacoes').add(Hospitalizacoes).catchError((e){
+          print(e);
+
+   });
+}
+
+Future<void> addObitos(Obitos) async {
+
+   Firestore.instance.collection('OBITOS').add(Obitos).catchError((e){
+          print(e);
+
+   });
+}
+
 }

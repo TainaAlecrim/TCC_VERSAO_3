@@ -34,8 +34,8 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
   // Perform login or signup
   void validateAndSubmit() async {
     setState(() {
-      _errorMessage = "Usuario não identificado";
-      _isLoading = true;
+      _errorMessage = "";
+      _isLoading = false; // infinito
     });
     if (validateAndSave()) {
       String userId = "";
@@ -45,8 +45,8 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           print('Signed in: $userId');
         } else {
           userId = await widget.auth.signUp(_email, _password);
-          //widget.auth.sendEmailVerification();
-          //_showVerifyEmailSentDialog();
+          widget.auth.sendEmailVerification();
+          _showVerifyEmailSentDialog();
           print('Signed up user: $userId');
         }
         setState(() {
@@ -89,16 +89,18 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return new Scaffold(
-
-        backgroundColor: Colors.tealAccent,
+  
         body: Stack(
           children: <Widget>[
+            
+            
             _showForm(),
             _showCircularProgress(),
+
           ],
         ));
-      
   }
 
   Widget _showCircularProgress() {
@@ -111,36 +113,45 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     );
   }
 
-//  void _showVerifyEmailSentDialog() {
-//    showDialog(
-//      context: context,
-//      builder: (BuildContext context) {
-//        // return object of type Dialog
-//        return AlertDialog(
-//          title: new Text("Verify your account"),
-//          content:
-//              new Text("Link to verify account has been sent to your email"),
-//          actions: <Widget>[
-//            new FlatButton(
-//              child: new Text("Dismiss"),
-//              onPressed: () {
-//                toggleFormMode();
-//                Navigator.of(context).pop();
-//              },
-//            ),
-//          ],
-//        );
-//      },
-//    );
-//  }
+ void _showVerifyEmailSentDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+         title: new Text("Verifique sua conta"),
+          content:
+              new Text("Link para verificar se a conta foi enviada para o seu e-mail"),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("OK"),
+              onPressed: () {
+                toggleFormMode();
+               Navigator.of(context).pop();
+              },
+            ),          ],
+        );
+      },
+    );
+  }
 
   Widget _showForm() {
     return new Container(
+      
+                          decoration: new BoxDecoration(
+                gradient: new LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color.fromARGB(255, 173,216,230),
+                    Color.fromARGB(255, 65,105,225)
+                  ],
+                )),
         padding: EdgeInsets.all(16.0),
         child: new Form(
           key: _formKey,
           child: new ListView(
-            shrinkWrap: true,
+            shrinkWrap: false,
             children: <Widget>[
               showLogo(),
               showEmailInput(),
@@ -174,13 +185,13 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     return new Hero(
       tag: 'hero',
       child: Padding(
-        padding: EdgeInsets.fromLTRB(0.0, 60.0, 0.0, 0.0),
-        child: CircleAvatar(
-          backgroundColor: Colors.transparent,
-          radius: 80.0,
-          child: Image.asset('assets/flutter-icon.png'),
-        ),
-      ),
+              padding: EdgeInsets.fromLTRB(0, 20, 0, 30),
+              child: CircleAvatar(
+                backgroundColor: Colors.transparent,
+                radius: 90.0,
+                child: Image.asset('assets/logo.png'),
+              ),
+            ),
     );
   }
 
@@ -195,9 +206,9 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             hintText: 'Email',
             icon: new Icon(
               Icons.mail,
-              color: Colors.black54,
+              color: Colors.white,
             )),
-        validator: (value) => value.isEmpty ? 'Email não pode ficar vazio' : null,
+        validator: (value) => value.isEmpty ? 'O Email não pode ficar vazio' : null,
         onSaved: (value) => _email = value.trim(),
       ),
     );
@@ -214,9 +225,9 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             hintText: 'Senha',
             icon: new Icon(
               Icons.lock,
-              color: Colors.black54,
+              color: Colors.white,
             )),
-        validator: (value) => value.isEmpty ? 'Senha não pode ficar vazia' : null,
+        validator: (value) => value.isEmpty ? 'A Senha não pode ficar vazia' : null,
         onSaved: (value) => _password = value.trim(),
       ),
     );
@@ -225,8 +236,8 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
   Widget showSecondaryButton() {
     return new FlatButton(
         child: new Text(
-            _isLoginForm ? 'Crie uma Conta' : 'Já tem uma conta? Entre agora',
-            style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
+            _isLoginForm ? 'Criar uma conta' : 'Já possui conta? Clique aqui',
+            style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300,decoration: TextDecoration.underline )),
         onPressed: toggleFormMode);
   }
 
@@ -239,9 +250,9 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             elevation: 5.0,
             shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(30.0)),
-            color: Colors.blueAccent,
-            child: new Text(_isLoginForm ? 'Entrar' : 'Crie sua Conta',
-                style: new TextStyle(fontSize: 20.0, color: Colors.white70)),
+            color: Colors.blue[400],
+            child: new Text(_isLoginForm ? 'Entrar' : 'Criar uma conta',
+                style: new TextStyle(fontSize: 20.0, color: Colors.white)),
             onPressed: validateAndSubmit,
           ),
         ));

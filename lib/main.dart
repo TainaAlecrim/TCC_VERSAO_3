@@ -14,8 +14,10 @@ class MyApp extends StatelessWidget {
         title: 'Sistema de Informação da Atenção Básica',
         debugShowCheckedModeBanner: false,
         theme: new ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.indigo,
+          
         ),
         home: new RootPage(auth: new Auth()));
   }
+  
 }

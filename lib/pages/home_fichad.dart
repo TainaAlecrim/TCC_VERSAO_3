@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_login_demo/pages/crud.dart';
 import 'package:flutter_login_demo/pages/home_page.dart';
+import 'package:flutter_login_demo/pages/multi_form_hosp.dart';
+import 'package:flutter_login_demo/pages/multi_form_obitos.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'dart:async';
@@ -17,26 +19,27 @@ class FichaD extends StatefulWidget {
 
 class _StepperState extends State<FichaD> {
   TextEditingController _controller = TextEditingController();
-  TextEditingController _controller1 = TextEditingController(); 
-  TextEditingController _controller2 = TextEditingController(); /// CRIAR UM CONTROLER PRA CADA BAGULHO
-  TextEditingController _controller3 = TextEditingController(); 
-  TextEditingController _controller4 = TextEditingController(); 
-  TextEditingController _controller5 = TextEditingController(); 
-  TextEditingController _controller6 = TextEditingController(); 
-  TextEditingController _controller7 = TextEditingController(); 
-  TextEditingController _controller8 = TextEditingController(); 
-  TextEditingController _controller9 = TextEditingController(); 
-  TextEditingController _controller10 = TextEditingController();
-  TextEditingController _controller11 = TextEditingController(); 
-  TextEditingController _controller12 = TextEditingController(); 
-  TextEditingController _controller13 = TextEditingController(); 
-  TextEditingController _controller14 = TextEditingController(); 
-  TextEditingController _controller15 = TextEditingController(); 
-  TextEditingController _controller16 = TextEditingController(); 
-  TextEditingController _controller17 = TextEditingController(); 
-  TextEditingController _controller18 = TextEditingController();
-  TextEditingController _controller19 = TextEditingController();  
+  TextEditingController _controller1 = TextEditingController();
+  TextEditingController _controller2 = TextEditingController();
 
+  /// CRIAR UM CONTROLER PRA CADA BAGULHO
+  TextEditingController _controller3 = TextEditingController();
+  TextEditingController _controller4 = TextEditingController();
+  TextEditingController _controller5 = TextEditingController();
+  TextEditingController _controller6 = TextEditingController();
+  TextEditingController _controller7 = TextEditingController();
+  TextEditingController _controller8 = TextEditingController();
+  TextEditingController _controller9 = TextEditingController();
+  TextEditingController _controller10 = TextEditingController();
+  TextEditingController _controller11 = TextEditingController();
+  TextEditingController _controller12 = TextEditingController();
+  TextEditingController _controller13 = TextEditingController();
+  TextEditingController _controller14 = TextEditingController();
+  TextEditingController _controller15 = TextEditingController();
+  TextEditingController _controller16 = TextEditingController();
+  TextEditingController _controller17 = TextEditingController();
+  TextEditingController _controller18 = TextEditingController();
+  TextEditingController _controller19 = TextEditingController();
 
   String Segmentof;
   String CNSdoProfissional;
@@ -46,13 +49,11 @@ class _StepperState extends State<FichaD> {
   String Profissionalf;
   String _municiopiof;
   String input1;
-  
-
 
   @override
   void initState() {
     super.initState();
-    _controller.text = "0"; 
+    _controller.text = "0";
     _controller1.text = "0";
     _controller2.text = "0";
     _controller3.text = "0";
@@ -72,10 +73,7 @@ class _StepperState extends State<FichaD> {
     _controller17.text = "0";
     _controller18.text = "0";
     _controller19.text = "0";
- 
-
   }
-
 
   crudMedthods crudObj = new crudMedthods();
 
@@ -83,6 +81,16 @@ class _StepperState extends State<FichaD> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
+      appBar: new AppBar(
+        title: Text('              Ficha D',
+                      style: TextStyle(
+                fontWeight: FontWeight.w300,
+                color: Colors.white60,
+                fontSize: 25,
+              ),
+        ),
+      ),
+      backgroundColor: Colors.grey[50],
       body: new GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
@@ -93,7 +101,7 @@ class _StepperState extends State<FichaD> {
     );
   }
 
-  DateTime selectedData;
+ /* DateTime selectedData;
   Widget Datadoatendimento() {
     return Padding(
         padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
@@ -106,7 +114,7 @@ class _StepperState extends State<FichaD> {
               Icons.calendar_today,
               color: Colors.grey,
             ),
-          ),
+          ),r
           onDateSelected: (DateTime value) {
             setState(() {
               selectedData = value;
@@ -114,7 +122,7 @@ class _StepperState extends State<FichaD> {
           },
           lastDate: DateTime.now(),
         ));
-  }
+  }*/
 
   Widget CNSndoProfissional() {
     return Padding(
@@ -137,7 +145,6 @@ class _StepperState extends State<FichaD> {
       ),
     );
   }
-
 
   Widget Segmento() {
     return Padding(
@@ -247,7 +254,7 @@ class _StepperState extends State<FichaD> {
     );
   }
 
-  DateTime _selectedDate;
+  /*DateTime _selectedDate;
   Widget DataDiaria() {
     return Padding(
         padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
@@ -264,7 +271,7 @@ class _StepperState extends State<FichaD> {
             dividerColor: Colors.black,
           ),
         ));
-  }
+  }*/
 
   Widget Municipio() {
     return Padding(
@@ -307,7 +314,6 @@ class _StepperState extends State<FichaD> {
     );
   }
 
-
   Future<bool> dialogTrigger(BuildContext context) async {
     return showDialog(
         context: context,
@@ -332,20 +338,20 @@ class _StepperState extends State<FichaD> {
       children: <Widget>[
         Container(
             margin: new EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.1,
+              left: MediaQuery.of(context).size.width * 0.08,
               right: MediaQuery.of(context).size.width * 0.1,
               top: MediaQuery.of(context).size.height * 0.0,
               bottom: MediaQuery.of(context).size.height * 0.1,
             ),
             padding: EdgeInsets.all(0.0),
             child: new Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Container(
+                  /*Container(
                       margin: new EdgeInsets.only(
                         left: MediaQuery.of(context).size.width * 0.0,
-                        right: MediaQuery.of(context).size.width * 0.10,
-                        top: MediaQuery.of(context).size.height * 0.020,
+                        right: MediaQuery.of(context).size.width * 0.5,
+                        top: MediaQuery.of(context).size.height * 0.03,
                         bottom: MediaQuery.of(context).size.height * 0.0,
                       ),
                       height: 60,
@@ -353,17 +359,15 @@ class _StepperState extends State<FichaD> {
                       child: FlatButton(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              "Voltar",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.blue,
-                                fontSize: 20,
-                              ),
-                              textAlign: TextAlign.left,
+                          /*children: <Widget>[
+                           Icon(
+                              Icons.arrow_back,
+                              color: Colors.blueAccent,
+                              size: 35,
+                              semanticLabel:
+                                  'Text to announce in accessibility modes',
                             ),
-                          ],
+                          ],*/
                         ),
                         onPressed: () {
                           Navigator.push(
@@ -371,23 +375,9 @@ class _StepperState extends State<FichaD> {
                             MaterialPageRoute(builder: (context) => HomePage()),
                           );
                         },
-                      )),
-                  Container(
-                    margin: new EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.0,
-                      bottom: MediaQuery.of(context).size.height * 0.0,
-                    ),
-                    child: Text(
-                      "Ficha D",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w300,
-                        color: Colors.black,
-                        fontSize: 27,
-                      ),
-                      textAlign: TextAlign.justify,
-                    ),
-                  ),
-                  DataDiaria(),
+                      )),*/
+
+                  //DataDiaria(),
                   Profissional(),
                   CNSndoProfissional(),
                   Segmento(),
@@ -413,7 +403,7 @@ class _StepperState extends State<FichaD> {
             new Column(children: <Widget>[
               // TITULO
 
-              Container(
+             /* Container(
                 margin: new EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.05,
                   bottom: MediaQuery.of(context).size.height * 0.0,
@@ -422,7 +412,7 @@ class _StepperState extends State<FichaD> {
                   "Registro de Atividades",
                   style: TextStyle(fontSize: 20),
                 ),
-              ),
+              ),*/
 
               // IMPULT NUMEROS
 
@@ -463,7 +453,6 @@ class _StepperState extends State<FichaD> {
                             int currentValue = int.parse(_controller.text);
 
                             setState(() {
-                              
                               currentValue++;
 
                               _controller.text = (currentValue)
@@ -560,14 +549,12 @@ class _StepperState extends State<FichaD> {
                             int currentValue1 = int.parse(_controller1.text);
 
                             setState(() {
-                              
                               print("Setting state");
 
                               currentValue1--;
 
                               this._controller1.text = (currentValue1)
                                   .toString(); // decrementing value
-                                  
                             });
                           },
                         ),
@@ -577,7 +564,6 @@ class _StepperState extends State<FichaD> {
                       flex: 01,
                     )
                   ],
-                  
                 ),
               ),
 
@@ -748,7 +734,7 @@ class _StepperState extends State<FichaD> {
             new Column(children: <Widget>[
               // TITULO
 
-              Container(
+              /*Container(
                 margin: new EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.05,
                   bottom: MediaQuery.of(context).size.height * 0.0,
@@ -757,7 +743,7 @@ class _StepperState extends State<FichaD> {
                   "Registro de Atividades",
                   style: TextStyle(fontSize: 20),
                 ),
-              ),
+              ),*/
 
               // IMPULT NUMEROS
 
@@ -1080,7 +1066,7 @@ class _StepperState extends State<FichaD> {
             new Column(children: <Widget>[
               // TITULO
 
-              Container(
+              /*Container(
                 margin: new EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.05,
                   bottom: MediaQuery.of(context).size.height * 0.0,
@@ -1089,7 +1075,7 @@ class _StepperState extends State<FichaD> {
                   "Registro de Atividades",
                   style: TextStyle(fontSize: 20),
                 ),
-              ),
+              ),*/
 
               // IMPULT NUMEROS
 
@@ -1411,7 +1397,7 @@ class _StepperState extends State<FichaD> {
             new Column(children: <Widget>[
               // TITULO
 
-              Container(
+              /*Container(
                 margin: new EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.05,
                   bottom: MediaQuery.of(context).size.height * 0.0,
@@ -1420,7 +1406,7 @@ class _StepperState extends State<FichaD> {
                   "Registro de Atividades",
                   style: TextStyle(fontSize: 20),
                 ),
-              ),
+              ),*/
 
               // IMPULT NUMEROS
 
@@ -1751,10 +1737,10 @@ class _StepperState extends State<FichaD> {
           ),
           padding: EdgeInsets.all(0.0),
           child:
-              new Column(mainAxisAlignment: MainAxisAlignment.start, children: <
-                  Widget>[
+              new Column(mainAxisAlignment: MainAxisAlignment.start, 
+              children: <Widget>[
             // ULTIMA TELA
-            Container(
+            /*Container(
               margin: new EdgeInsets.only(
                 top: MediaQuery.of(context).size.height * 0.05,
                 bottom: MediaQuery.of(context).size.height * 0.0,
@@ -1763,7 +1749,7 @@ class _StepperState extends State<FichaD> {
                 "Médico",
                 style: TextStyle(fontSize: 20),
               ),
-            ),
+            ),*/
 
             Container(
               margin: new EdgeInsets.only(
@@ -1815,8 +1801,8 @@ class _StepperState extends State<FichaD> {
                           setState(() {
                             currentValue16++;
 
-                            _controller16.text =
-                                (currentValue16).toString(); // incrementing value
+                            _controller16.text = (currentValue16)
+                                .toString(); // incrementing value
                           });
                         },
                       ),
@@ -1831,8 +1817,8 @@ class _StepperState extends State<FichaD> {
 
                             currentValue16--;
 
-                            _controller16.text =
-                                (currentValue16).toString(); // decrementing value
+                            _controller16.text = (currentValue16)
+                                .toString(); // decrementing value
                           });
                         },
                       ),
@@ -1869,7 +1855,7 @@ class _StepperState extends State<FichaD> {
                       // bottom: MediaQuery.of(context).size.height * 0.0,
                     ),
                     child: Text(
-                      "Acidente cvascular cerebral            ",
+                      "Acidente vascular cerebral            ",
                       style: TextStyle(fontSize: 16),
                     ),
                   ),
@@ -1897,8 +1883,8 @@ class _StepperState extends State<FichaD> {
                           setState(() {
                             currentValue17++;
 
-                            _controller17.text =
-                                (currentValue17).toString(); // incrementing value
+                            _controller17.text = (currentValue17)
+                                .toString(); // incrementing value
                           });
                         },
                       ),
@@ -1913,8 +1899,8 @@ class _StepperState extends State<FichaD> {
 
                             currentValue17--;
 
-                            _controller17.text =
-                                (currentValue17).toString(); // decrementing value
+                            _controller17.text = (currentValue17)
+                                .toString(); // decrementing value
                           });
                         },
                       ),
@@ -1979,8 +1965,8 @@ class _StepperState extends State<FichaD> {
                           setState(() {
                             currentValue18++;
 
-                            _controller18.text =
-                                (currentValue18).toString(); // incrementing value
+                            _controller18.text = (currentValue18)
+                                .toString(); // incrementing value
                           });
                         },
                       ),
@@ -1995,8 +1981,8 @@ class _StepperState extends State<FichaD> {
 
                             currentValue18--;
 
-                            _controller18.text =
-                                (currentValue18).toString(); // decrementing value
+                            _controller18.text = (currentValue18)
+                                .toString(); // decrementing value
                           });
                         },
                       ),
@@ -2016,7 +2002,7 @@ class _StepperState extends State<FichaD> {
                 left: MediaQuery.of(context).size.width * 0.0,
                 right: MediaQuery.of(context).size.width * 0.0,
                 top: MediaQuery.of(context).size.height * 0.0,
-                bottom: MediaQuery.of(context).size.height * 0.1,
+                bottom: MediaQuery.of(context).size.height * 0.0,
               ),
               padding: const EdgeInsets.all(20.0),
               alignment: Alignment.centerRight,
@@ -2061,8 +2047,8 @@ class _StepperState extends State<FichaD> {
                           setState(() {
                             currentValue19++;
 
-                            _controller19.text =
-                                (currentValue19).toString(); // incrementing value
+                            _controller19.text = (currentValue19)
+                                .toString(); // incrementing value
                           });
                         },
                       ),
@@ -2077,8 +2063,8 @@ class _StepperState extends State<FichaD> {
 
                             currentValue19--;
 
-                            _controller19.text =
-                                (currentValue19 ).toString(); // decrementing value
+                            _controller19.text = (currentValue19)
+                                .toString(); // decrementing value
                           });
                         },
                       ),
@@ -2093,58 +2079,242 @@ class _StepperState extends State<FichaD> {
           ]),
         ),
 
-        FlatButton(
-            color: Colors.blueAccent,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100)),
-            child: Text(
-              'Salvar',
-              style: TextStyle(
-                fontWeight: FontWeight.w300,
-                color: Colors.white,
-                fontSize: 30,
-              ),
-              textAlign: TextAlign.left,
+        new Scaffold(
+          backgroundColor: Colors.grey[50],
+          body: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Container(
+                  margin: new EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.80,
+                    //right: MediaQuery.of(context).size.width * 0.05,
+                    top: MediaQuery.of(context).size.height * 0.0,
+                    bottom: MediaQuery.of(context).size.height * 0.0,
+                  ),
+                  height: 60,
+                  alignment: Alignment.centerRight,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      "Clique caso ocorrido:",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                        fontSize: 20,
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ],
+                ),
+
+                // primeiro botão
+                Container(
+                  margin: new EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.05,
+                    right: MediaQuery.of(context).size.width * 0.05,
+                    top: MediaQuery.of(context).size.height * 0.09,
+                    bottom: MediaQuery.of(context).size.height * 0.09,
+                  ),
+                  height: 100,
+                  alignment: Alignment.bottomCenter,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      stops: [0.3, 1],
+                      colors: [
+                    Colors.indigoAccent,
+                    Colors.indigoAccent,
+                      ],
+                    ),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  child: SizedBox.expand(
+                    child: FlatButton(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Obitos",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white,
+                              fontSize: 22,
+                            ),
+                            textAlign: TextAlign.justify,
+                          ),
+                        ],
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MultiFormObitos()),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+
+                // segundo botão
+
+                Container(
+                  margin: new EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.05,
+                    right: MediaQuery.of(context).size.width * 0.05,
+                    top: MediaQuery.of(context).size.height * 0.0,
+                    bottom: MediaQuery.of(context).size.height * 0.10,
+                  ),
+                  height: 100,
+                  alignment: Alignment.centerRight,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      stops: [0.3, 1],
+                      colors: [
+                     Colors.indigoAccent,
+                    Colors.indigoAccent,
+                      ],
+                    ),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  child: SizedBox.expand(
+                    child: FlatButton(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Hospitalizações",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white,
+                              fontSize: 22,
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+                        ],
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MultiFormHosp()),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+
+                Container(
+                  margin: new EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.1,
+                    right: MediaQuery.of(context).size.width * 0.1,
+                    top: MediaQuery.of(context).size.height * 0.0,
+                    bottom: MediaQuery.of(context).size.height * 0.05,
+                  ),
+                  height: 40,
+                  alignment: Alignment.centerRight,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      stops: [0.1, 0.6],
+                      colors: [
+                    Colors.green,
+                    Colors.green,
+                      ],
+                    ),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                  ),
+                  child: SizedBox.expand(
+                    child: FlatButton(
+                                        child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      /*Icon(
+                        Icons.check,
+                        color: Colors.white70,
+                        size: 45,
+                      ),*/
+                      Text(
+                        "    Salvar    ",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w300,
+                          color: Colors.white,
+                          fontSize: 24,
+                        ),
+                        textAlign: TextAlign.justify,
+                      ),
+                    ],
+                  ),
+                        //color: Colors.blueAccent,
+                        
+                        onPressed: () {
+                          Navigator.of(context).pop();
+
+                          Map<String, dynamic> FichaD = {
+                            //'Data': this._selectedDate,
+                            'Segmento': this.Segmentof,
+                            'Cns do profissional': this.CNSdoProfissional,
+                            'unidade': this.Unidadef,
+                            'Nome do Profissional': this.Profissionalf,
+                            'Area': this.Areaf,
+                            'Micro Area': this.Microareaf,
+                            'Municiopio': this._municiopiof,
+                            'Atendimento Especifico para AT':
+                                this._controller.text,
+                            'Visita de inspeção sanitária':
+                                this._controller1.text,
+                            'Atend/individual/prof.nivel/superior':
+                                this._controller2.text,
+                            'Curativos': this._controller3.text,
+                            'Inalação': this._controller4.text,
+                            'Injeções': this._controller5.text,
+                            'Retiradas de pontos': this._controller6.text,
+                            'Sutura': this._controller7.text,
+                            'Atend/grupo/educ.em saude': this._controller8.text,
+                            'Procedimentos coleticos (PCI)':
+                                this._controller9.text,
+                            'reuniões': this._controller10.text,
+                            'Visita domociliar': this._controller11.text,
+                            'Terapia de reidratação oral':
+                                this._controller12.text,
+                            'Menores de 2 anos com diarreia':
+                                this._controller13.text,
+                            '<2 anos com diarreia e usaram TRO':
+                                this._controller14.text,
+                            '<2 anos com infecção resperatória aguda':
+                                this._controller15.text,
+                            '<5 anos que tiveram pneamunia':
+                                this._controller16.text,
+                            'Acidente Cardiovascular': this._controller17.text,
+                            'Infarto Agudo da miocardia':
+                                this._controller18.text,
+                            'DHEG (forma grave)': this._controller19.text,
+                          };
+                          crudObj.addFicha(FichaD).then((result) {
+                            dialogTrigger(context);
+                          }).catchError((e) {
+                            print(e);
+                          });
+                        }),
+                  ),
+                ),
+              ],
             ),
-            onPressed: () {
-              Navigator.of(context).pop();
-
-              Map<String, dynamic> FichaD = {
-
-                'Segmento': this.Segmentof,
-                'Cns do profissional': this.CNSdoProfissional,
-                'unidade': this.Unidadef,
-                'Nome do Profissional':this.Profissionalf,
-                'Area': this.Areaf,
-                'Micro Area': this.Microareaf,
-                'Municiopio': this._municiopiof,
-                'Atendimento Especifico para AT':this._controller.text,
-                'Visita de inspeção sanitária':this._controller1.text,
-                'Atend/individual/prof.nivel/superior':this._controller2.text,
-                'Curativos':this._controller3.text,
-                'Inalação':this._controller4.text,
-                'Injeções':this._controller5.text,
-                'Retiradas de pontos':this._controller6.text,
-                'Sutura':this._controller7.text,
-                'Atend/grupo/educ.em saude':this._controller8.text,
-                'Procedimentos coleticos (PCI)':this._controller9.text,
-                'reuniões':this._controller10.text,
-                'Visita domociliar':this._controller11.text,
-                'Terapia de reidratação oral':this._controller12.text,
-                'Menores de 2 anos com diarreia':this._controller13.text,
-                '<2 anos com diarreia e usaram TRO':this._controller14.text,
-                '<2 anos com infecção resperatória aguda':this._controller15.text,
-                '<5 anos que tiveram pneamunia': this._controller16.text,
-                'Acidente Cardiovascular':this._controller17.text,
-                'Infarto Agudo da miocardia':this._controller18.text,
-                'DHEG (forma grave)':this._controller19.text,
-              };
-              crudObj.addFicha(FichaD).then((result) {
-                dialogTrigger(context);
-              }).catchError((e) {
-                print(e);
-              });
-            }),
+          ),
+        ),
       ],
       scrollDirection: Axis.horizontal,
       physics: ClampingScrollPhysics(),

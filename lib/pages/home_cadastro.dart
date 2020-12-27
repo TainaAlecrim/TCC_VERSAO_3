@@ -13,10 +13,12 @@ import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 
 class Cadastro extends StatefulWidget {
   @override
+  Cadastro({Key key}) : super(key: key);
+
   _StepperState createState() => _StepperState();
 }
 
-final _formkey = GlobalKey<FormState>();
+
 final List<String> ufs = [
   'AL',
   'AP',
@@ -47,6 +49,8 @@ final List<String> ufs = [
 
 class _StepperState extends State<Cadastro> {
   FocusNode _focusNode = new FocusNode();
+  
+final _formkey = GlobalKey<FormState>();
   int _currentStep = 0;
   int group = 1;
   int sexualidade = 2;
@@ -98,38 +102,53 @@ class _StepperState extends State<Cadastro> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
       resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomPadding: true,
+      appBar: new AppBar(
+        title: Text(
+          '              Ficha A',
+          style: TextStyle(
+            fontWeight: FontWeight.w300,
+            color: Colors.white60,
+            fontSize: 25,
+          ),
+        ),
+      ),
       body: new Container(
+        child: new Form(
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: () {
             FocusScope.of(context).unfocus();
           },
-          child: Stack(children: <Widget>[_showForm()]),
+          child: Stack(children: <Widget>[
+            _showForm()
+            ]),
         ),
-      ),
+      )),
     );
   }
 
   Widget CNS() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-      child: new TextFormField(
-        maxLines: 1,
-        keyboardType: TextInputType.emailAddress,
-        autofocus: false,
-        decoration: new InputDecoration(
-            hintText: 'Cns do cidadão',
-            icon: new Icon(
-              Icons.card_membership,
-              color: Colors.grey,
-            )),
-        validator: (value) =>
-            value.isEmpty ? 'O campo CNS não pode ficar vazio' : null,
-        onChanged: (value) {
-          this.CNSn = value;
-        },
+    return SingleChildScrollView(
+          child: Padding(
+        padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+        child: new TextFormField(
+          maxLines: 1,
+          keyboardType: TextInputType.emailAddress,
+          autofocus: false,
+          decoration: new InputDecoration(
+              hintText: 'Cns do cidadão',
+              icon: new Icon(
+                Icons.card_membership,
+                color: Colors.grey,
+              )),
+          validator: (value) =>
+              value.isEmpty ? 'O campo CNS não pode ficar vazio' : null,
+          onChanged: (value) {
+            this.CNSn = value;
+          },
+        ),
       ),
     );
   }
@@ -162,17 +181,16 @@ class _StepperState extends State<Cadastro> {
     return Padding(
         padding: const EdgeInsets.fromLTRB(40.0, 0.0, 0.0, 0.0),
         child: DatePickerWidget(
-
-      looping: false, // default is not looping
-      firstDate: DateTime(1900, 01, 01),
-      lastDate: DateTime(2100, 1, 1),
-      initialDate: DateTime(1900, 01, 01),
-      pickerTheme: DateTimePickerTheme(
-        itemTextStyle: TextStyle(color: Colors.black, fontSize: 14),
-        dividerColor: Colors.black,
-      ),
-    )
-        );
+          looping: false, // default is not looping
+          firstDate: DateTime(1940, 01, 01),
+          lastDate: DateTime(2100, 1, 1),
+          initialDate: DateTime(1940, 01, 01),
+          onChange: (DateTime newDate, _) =>_selectedDate = newDate,
+          pickerTheme: DateTimePickerTheme(
+            itemTextStyle: TextStyle(color: Colors.black, fontSize: 14),
+            dividerColor: Colors.black,
+          ),   
+        ));
   }
 
   Widget NomeMae() {
@@ -200,7 +218,7 @@ class _StepperState extends State<Cadastro> {
   Widget Nacionalidade() {
     return Container(
       margin: new EdgeInsets.only(
-        top: MediaQuery.of(context).size.height * 0.02,
+        top: MediaQuery.of(context).size.height * 0.0,
       ),
       padding: EdgeInsets.all(0.0),
       child: new Column(
@@ -209,8 +227,10 @@ class _StepperState extends State<Cadastro> {
         children: <Widget>[
           new Text(
             'Nacionalidade:',
-            style: new TextStyle(
-              fontSize: 16.0,
+            style: TextStyle(
+              fontWeight: FontWeight.w800,
+              color: Colors.black,
+              fontSize: 16,
             ),
           ),
           new Row(
@@ -229,7 +249,7 @@ class _StepperState extends State<Cadastro> {
               ),
               new Text('Brasileiro',
                   style: new TextStyle(
-                    fontSize: 12.5,
+                    fontSize: 14,
                   )),
               new Radio(
                 value: 1,
@@ -244,7 +264,7 @@ class _StepperState extends State<Cadastro> {
               ),
               new Text('Estrageiro',
                   style: new TextStyle(
-                    fontSize: 12.5,
+                    fontSize: 14,
                   )),
               new Radio(
                 value: 2,
@@ -253,13 +273,13 @@ class _StepperState extends State<Cadastro> {
                   print(value);
                   setState(() {
                     nacionalidade = value;
-                    this.nacionalidade1 = 'Naturalizado';
+                    this.nacionalidade1 = 'Natural.';
                   });
                 },
               ),
-              new Text('Naturalizado',
+              new Text('Natural.',
                   style: new TextStyle(
-                    fontSize: 12.5,
+                    fontSize: 14,
                   )),
             ],
           ),
@@ -284,7 +304,11 @@ class _StepperState extends State<Cadastro> {
         children: <Widget>[
           Text(
             'Sexo:',
-            style: new TextStyle(fontSize: 16),
+                        style: TextStyle(
+              fontWeight: FontWeight.w800,
+              color: Colors.black,
+              fontSize: 16,
+            ),
           ),
           Row(
             children: <Widget>[
@@ -332,13 +356,13 @@ class _StepperState extends State<Cadastro> {
           ? Text('Selecione')
           : Text(
               _dropDownValue,
-              style: TextStyle(color: Colors.blueAccent),
+              style: TextStyle(color: Colors.indigo),
             ),
       value: _raca,
       icon: Icon(Icons.keyboard_arrow_down),
       iconSize: 19,
       elevation: 20,
-      style: TextStyle(color: Colors.blueAccent),
+      style: TextStyle(color: Colors.indigo),
       underline: Container(
         height: 2,
         color: Colors.grey,
@@ -464,7 +488,7 @@ class _StepperState extends State<Cadastro> {
             value: _ufresidencial,
             iconSize: 19,
             elevation: 20,
-            style: TextStyle(color: Colors.deepPurple),
+            style: TextStyle(color: Colors.indigo),
             underline: Container(
               height: 2,
               color: Colors.grey,
@@ -490,14 +514,18 @@ class _StepperState extends State<Cadastro> {
         left: MediaQuery.of(context).size.width * 0.00,
         right: MediaQuery.of(context).size.width * 0.0,
         top: MediaQuery.of(context).size.height * 0.0,
-        bottom: MediaQuery.of(context).size.height * 0.0,
+        bottom: MediaQuery.of(context).size.height * 0.05,
       ),
       child: new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
             'Situação de moradia e saneamento',
-            style: new TextStyle(fontSize: 18),
+                        style: TextStyle(
+              fontWeight: FontWeight.w800,
+              color: Colors.black,
+              fontSize: 16,
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -514,7 +542,7 @@ class _StepperState extends State<Cadastro> {
                   }),
               Text(
                 "Tijolo",
-                style: new TextStyle(fontSize: 12),
+                style: new TextStyle(fontSize: 14),
               ),
             ],
           ),
@@ -533,7 +561,7 @@ class _StepperState extends State<Cadastro> {
                   }),
               Text(
                 "Taipa Revestida",
-                style: new TextStyle(fontSize: 12),
+                style: new TextStyle(fontSize: 14),
               ),
             ],
           ),
@@ -552,7 +580,7 @@ class _StepperState extends State<Cadastro> {
                   }),
               Text(
                 "Taipa não Revestida",
-                style: new TextStyle(fontSize: 12),
+                style: new TextStyle(fontSize: 14),
               ),
             ],
           ),
@@ -571,7 +599,7 @@ class _StepperState extends State<Cadastro> {
                   }),
               Text(
                 "Madeira",
-                style: new TextStyle(fontSize: 12),
+                style: new TextStyle(fontSize: 14),
               ),
             ],
           ),
@@ -590,7 +618,7 @@ class _StepperState extends State<Cadastro> {
                   }),
               Text(
                 "Madeira Aproveitada",
-                style: new TextStyle(fontSize: 12),
+                style: new TextStyle(fontSize: 14),
               ),
             ],
           ),
@@ -601,13 +629,13 @@ class _StepperState extends State<Cadastro> {
 
   Widget Comodos() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 0, 90, 0),
+      padding: const EdgeInsets.fromLTRB(0, 0, 150, 0),
       child: new TextFormField(
         maxLines: 1,
         autofocus: false,
         keyboardType: TextInputType.number,
         decoration: new InputDecoration(
-            hintText: 'Quantidade de comodos',
+            hintText: 'Nº de comodos',
             icon: new Icon(
               Icons.format_list_numbered_rtl,
               color: Colors.grey,
@@ -637,7 +665,11 @@ class _StepperState extends State<Cadastro> {
         children: <Widget>[
           Text(
             'Destino do lixo:',
-            style: new TextStyle(fontSize: 16),
+                        style: TextStyle(
+              fontWeight: FontWeight.w800,
+              color: Colors.black,
+              fontSize: 16,
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -727,15 +759,19 @@ class _StepperState extends State<Cadastro> {
       margin: new EdgeInsets.only(
         left: MediaQuery.of(context).size.width * 0,
         right: MediaQuery.of(context).size.width * 0.0,
-        top: MediaQuery.of(context).size.height * 0.02,
+        top: MediaQuery.of(context).size.height * 0.0,
         bottom: MediaQuery.of(context).size.height * 0.0,
       ),
       child: new Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            'Tratamento de Agua no domicílio:',
-            style: new TextStyle(fontSize: 16),
+            'Tratamento de água no domicílio:',
+                        style: TextStyle(
+              fontWeight: FontWeight.w800,
+              color: Colors.black,
+              fontSize: 16,
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -832,7 +868,11 @@ class _StepperState extends State<Cadastro> {
         children: <Widget>[
           Text(
             'Abastecimento de Agua:',
-            style: new TextStyle(fontSize: 16),
+                        style: TextStyle(
+              fontWeight: FontWeight.w800,
+              color: Colors.black,
+              fontSize: 16,
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -910,7 +950,11 @@ class _StepperState extends State<Cadastro> {
         children: <Widget>[
           Text(
             'Destino do lixo:',
-            style: new TextStyle(fontSize: 16),
+                        style: TextStyle(
+              fontWeight: FontWeight.w800,
+              color: Colors.black,
+              fontSize: 16,
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -990,7 +1034,11 @@ class _StepperState extends State<Cadastro> {
         children: <Widget>[
           Text(
             'Possui energia eletrica:',
-            style: new TextStyle(fontSize: 16),
+                       style: TextStyle(
+              fontWeight: FontWeight.w800,
+              color: Colors.black,
+              fontSize: 16,
+            ),
           ),
           Row(
             children: <Widget>[
@@ -1046,7 +1094,11 @@ class _StepperState extends State<Cadastro> {
         children: <Widget>[
           Text(
             'Alguém da familia possui plano de saúde:',
-            style: new TextStyle(fontSize: 16),
+                        style: TextStyle(
+              fontWeight: FontWeight.w800,
+              color: Colors.black,
+              fontSize: 16,
+            ),
           ),
           Row(
             children: <Widget>[
@@ -1145,7 +1197,11 @@ class _StepperState extends State<Cadastro> {
         children: <Widget>[
           Text(
             'Em caso de doença procurar:',
-            style: new TextStyle(fontSize: 16),
+                        style: TextStyle(
+              fontWeight: FontWeight.w800,
+              color: Colors.black,
+              fontSize: 16,
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -1242,7 +1298,11 @@ class _StepperState extends State<Cadastro> {
         children: <Widget>[
           Text(
             'Participa de grupos comunitarios:',
-            style: new TextStyle(fontSize: 16),
+                        style: TextStyle(
+              fontWeight: FontWeight.w800,
+              color: Colors.black,
+              fontSize: 16,
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -1320,7 +1380,11 @@ class _StepperState extends State<Cadastro> {
         children: <Widget>[
           Text(
             'Meio de trasporte que mais utiliza:',
-            style: new TextStyle(fontSize: 16),
+                        style: TextStyle(
+              fontWeight: FontWeight.w800,
+              color: Colors.black,
+              fontSize: 16,
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -1483,8 +1547,23 @@ class _StepperState extends State<Cadastro> {
         });
   }
 
+  PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   Widget _showForm() {
     return new PageView(
+      controller: _pageController,
       children: <Widget>[
         Container(
             margin: new EdgeInsets.only(
@@ -1494,55 +1573,12 @@ class _StepperState extends State<Cadastro> {
               bottom: MediaQuery.of(context).size.height * 0.1,
             ),
             padding: EdgeInsets.all(0.0),
+            
             child: new Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                
                 children: <Widget>[
-                  Container(
-                      margin: new EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width * 0.0,
-                        right: MediaQuery.of(context).size.width * 0.69,
-                        top: MediaQuery.of(context).size.height * 0.020,
-                        bottom: MediaQuery.of(context).size.height * 0.0,
-                      ),
-                      height: 60,
-                      alignment: Alignment.centerRight,
-                      child: FlatButton(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              "Voltar",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.blue,
-                                fontSize: 20,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ],
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => HomePage()),
-                          );
-                        },
-                      )),
-                  Container(
-                    margin: new EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.01,
-                      bottom: MediaQuery.of(context).size.height * 0.03,
-                    ),
-                    child: Text(
-                      "Cadastro",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w300,
-                        color: Colors.black,
-                        fontSize: 27,
-                      ),
-                      textAlign: TextAlign.justify,
-                    ),
-                  ),
+
                   CNS(),
                   NomeCadastro(),
                   NomeMae(),
@@ -1582,18 +1618,18 @@ class _StepperState extends State<Cadastro> {
             left: MediaQuery.of(context).size.width * 0.1,
             right: MediaQuery.of(context).size.width * 0.1,
             top: MediaQuery.of(context).size.height * 0.0,
-            bottom: MediaQuery.of(context).size.height * 0.1,
+            bottom: MediaQuery.of(context).size.height * 0.2,
           ),
           padding: EdgeInsets.all(0.0),
           child: new Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
                   margin: new EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.03,
-                    bottom: MediaQuery.of(context).size.height * 0.03,
+                    top: MediaQuery.of(context).size.height * 0.0,
+                    bottom: MediaQuery.of(context).size.height * 0.0,
                   ),
-                  child: Text(
+                  /*child: Text(
                     "Cadastro",
                     style: TextStyle(
                       fontWeight: FontWeight.w300,
@@ -1601,7 +1637,7 @@ class _StepperState extends State<Cadastro> {
                       fontSize: 27,
                     ),
                     textAlign: TextAlign.justify,
-                  ),
+                  ),*/
                 ),
                 Nacionalidade(),
                 Sexo(),
@@ -1611,7 +1647,11 @@ class _StepperState extends State<Cadastro> {
                       alignment: Alignment.bottomLeft,
                       child: Text(
                         "Raça:                    ",
-                        style: TextStyle(fontSize: 16),
+                                    style: TextStyle(
+              fontWeight: FontWeight.w800,
+              color: Colors.black,
+              fontSize: 16,
+            ),
                       ),
                     ),
                     Raca(),
@@ -1627,18 +1667,18 @@ class _StepperState extends State<Cadastro> {
             left: MediaQuery.of(context).size.width * 0.1,
             right: MediaQuery.of(context).size.width * 0.1,
             top: MediaQuery.of(context).size.height * 0.0,
-            bottom: MediaQuery.of(context).size.height * 0.1,
+            bottom: MediaQuery.of(context).size.height * 0.2,
           ),
           padding: EdgeInsets.all(0.0),
           child: new Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
                   margin: new EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.03,
-                    bottom: MediaQuery.of(context).size.height * 0.03,
+                    top: MediaQuery.of(context).size.height * 0.0,
+                    bottom: MediaQuery.of(context).size.height * 0.0,
                   ),
-                  child: Text(
+                  /*child: Text(
                     "Cadastro",
                     style: TextStyle(
                       fontWeight: FontWeight.w300,
@@ -1646,7 +1686,7 @@ class _StepperState extends State<Cadastro> {
                       fontSize: 27,
                     ),
                     textAlign: TextAlign.justify,
-                  ),
+                  ),*/
                 ),
                 Moradia(),
                 Comodos(),
@@ -1666,10 +1706,10 @@ class _StepperState extends State<Cadastro> {
               children: <Widget>[
                 Container(
                   margin: new EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.03,
-                    bottom: MediaQuery.of(context).size.height * 0.03,
+                    top: MediaQuery.of(context).size.height * 0.0,
+                    bottom: MediaQuery.of(context).size.height * 0.0,
                   ),
-                  child: Text(
+                  /*child: Text(
                     "Cadastro",
                     style: TextStyle(
                       fontWeight: FontWeight.w300,
@@ -1677,7 +1717,7 @@ class _StepperState extends State<Cadastro> {
                       fontSize: 27,
                     ),
                     textAlign: TextAlign.justify,
-                  ),
+                  ),*/
                 ),
                 TratamendodeAgua(),
                 DestinodoLixo(),
@@ -1696,10 +1736,10 @@ class _StepperState extends State<Cadastro> {
               children: <Widget>[
                 Container(
                   margin: new EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.03,
-                    bottom: MediaQuery.of(context).size.height * 0.03,
+                    top: MediaQuery.of(context).size.height * 0.0,
+                    bottom: MediaQuery.of(context).size.height * 0.0,
                   ),
-                  child: Text(
+                  /*child: Text(
                     "Cadastro",
                     style: TextStyle(
                       fontWeight: FontWeight.w300,
@@ -1707,7 +1747,7 @@ class _StepperState extends State<Cadastro> {
                       fontSize: 27,
                     ),
                     textAlign: TextAlign.justify,
-                  ),
+                  ),*/
                 ),
                 Abastecimento(),
                 DestinodeFezeseUrina(),
@@ -1719,7 +1759,7 @@ class _StepperState extends State<Cadastro> {
             left: MediaQuery.of(context).size.width * 0.1,
             right: MediaQuery.of(context).size.width * 0.1,
             top: MediaQuery.of(context).size.height * 0.0,
-            bottom: MediaQuery.of(context).size.height * 0.0,
+            bottom: MediaQuery.of(context).size.height * 0.05,
           ),
           padding: EdgeInsets.all(0.0),
           child: new Column(
@@ -1727,10 +1767,10 @@ class _StepperState extends State<Cadastro> {
               children: <Widget>[
                 Container(
                   margin: new EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.03,
-                    bottom: MediaQuery.of(context).size.height * 0.03,
+                    top: MediaQuery.of(context).size.height * 0.0,
+                    bottom: MediaQuery.of(context).size.height * 0.0,
                   ),
-                  child: Text(
+                  /*child: Text(
                     "Cadastro",
                     style: TextStyle(
                       fontWeight: FontWeight.w300,
@@ -1738,62 +1778,63 @@ class _StepperState extends State<Cadastro> {
                       fontSize: 27,
                     ),
                     textAlign: TextAlign.justify,
-                  ),
+                  ),*/
                 ),
                 Doenca(),
                 Transporte(),
+                FlatButton(
+                    color: Colors.green,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(200)),
+                    child: Text(
+                      '       Salvar       ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w300,
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+
+                      Map<String, dynamic> CadastroData = {
+                        'Nome': this.Nome,
+                        'Cnsn': this.CNSn,
+                        'mae': this.mae,
+                        'nacionalidade': this.nacionalidade1,
+                        'Sexo': this.sexo1,
+                        'Moradia': this.moradia1,
+                        'Energia': this.energia1,
+                        'Destino Lixo': this.destino1,
+                        'Tratamento de agua': this.trata_agua1,
+                        'Abastecimento': this.agua,
+                        'Esgoto': this.esgoto1,
+                        'Uf': this._ufresidencial,
+                        'Raça': this._raca,
+                        'Numero Residencial': this.endereco,
+                        'Endereço': this.endereco,
+                        'Bairro': this.bairro,
+                        'Cep': this.cep,
+                        'Nº Comodos': this.comodos,
+                        'Nome do Plano': this.nomeplanodesaude,
+                        'Alguem Possui Plano': this.plano1,
+                        'Participa de grupos comunitários': this.comunitario1,
+                        'Em caso de doença procura': this.doenca1,
+                        'Meio de trasporte': this.transporte1,
+                        'Quantas pessoas utilizam o plano':
+                            this.numerodepessoasplano,
+                        'Data de Nascimento': this._selectedDate,
+                      };
+
+                      crudObj.addData(CadastroData).then((result) {
+                        dialogTrigger(context);
+                      }).catchError((e) {
+                        print(e);
+                      });
+                    })
               ]),
         ),
-        FlatButton(
-            color: Colors.blueAccent,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100)),
-            child: Text(
-              'Salvar',
-              style: TextStyle(
-                fontWeight: FontWeight.w300,
-                color: Colors.white,
-                fontSize: 30,
-              ),
-              textAlign: TextAlign.left,
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-
-              Map<String, dynamic> CadastroData = {
-                'Nome': this.Nome,
-                'Cnsn': this.CNSn,
-                'mae': this.mae,
-                'nacionalidade': this.nacionalidade1,
-                'Sexo': this.sexo1,
-                'Moradia': this.moradia1,
-                'Energia': this.energia1,
-                'Destino Lixo': this.destino1,
-                'Tratamento de agua': this.trata_agua1,
-                'Abastecimento': this.agua,
-                'Esgoto': this.esgoto1,
-                'Uf': this._ufresidencial,
-                'Raça': this._raca,
-                'Numero Residencial': this.endereco,
-                'Endereço': this.endereco,
-                'Bairro': this.bairro,
-                'Cep': this.cep,
-                'Nº Comodos': this.comodos,
-                'Nome do Plano': this.nomeplanodesaude,
-                'Alguem Possui Plano': this.plano1,
-                'Participa de grupos comunitários': this.comunitario1,
-                'Em caso de doença procura': this.doenca1,
-                'Meio de trasporte': this.transporte1,
-                'Quantas pessoas utilizam o plano': this.numerodepessoasplano,
-                'Data de Nascimento': this._selectedDate,
-              };
-
-              crudObj.addData(CadastroData).then((result) {
-                dialogTrigger(context);
-              }).catchError((e) {
-                print(e);
-              });
-            })
       ],
       scrollDirection: Axis.horizontal,
       physics: ClampingScrollPhysics(),
