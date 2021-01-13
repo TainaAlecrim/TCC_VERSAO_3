@@ -12,25 +12,23 @@ import 'package:flutter_login_demo/models/todo.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 
-
 import 'dart:ui';
 
-
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.auth, this.userId, this.logoutCallback , })
-      : super(key: key);
+  HomePage({
+    Key key,
+    this.auth,
+    this.userId,
+    this.logoutCallback,
+  }) : super(key: key);
 
   final BaseAuth auth;
   final VoidCallback logoutCallback;
   final String userId;
-  
-
 
   @override
   State<StatefulWidget> createState() => new _HomePageState();
 }
-
-
 
 class _HomePageState extends State<HomePage> {
   List<Todo> _todoList;
@@ -44,11 +42,7 @@ class _HomePageState extends State<HomePage> {
 
   Query _todoQuery;
 
- 
- 
-
-
-
+  Auth upObj6 = new Auth();
 
   //bool _isEmailVerified = false;
 
@@ -268,7 +262,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
@@ -279,23 +272,26 @@ class _HomePageState extends State<HomePage> {
         elevation: 10,
         backgroundColor: Colors.indigoAccent,
         actions: [
-         new FlatButton(
-        child: new Text('Sair',
-        style: new TextStyle(fontSize: 17.0, color: Colors.white)),
-        onPressed: signOut),
+          new FlatButton(
+              child: new Text('Sair',
+                  style: new TextStyle(fontSize: 17.0, color: Colors.white)),
+              onPressed: signOut),
         ],
       ),
       drawer: new Drawer(
           child: ListView(
         children: <Widget>[
           new Container(
-            child: new DrawerHeader(
-                child: new CircleAvatar(
-              backgroundImage: new NetworkImage(''),
-            )),
+            child: UserAccountsDrawerHeader(
+              accountEmail: Text('Agente Comunitário de Saúde'),
+              accountName: Text("Usuário"),
+            ),
             color: Colors.indigo,
           ),
           new ListTile(
+            subtitle: Text("Veja sua localização"),
+            trailing: Icon(Icons.arrow_forward),
+            leading: Icon(Icons.location_on),
             title: new Text(
               'Localização',
               style: TextStyle(
@@ -314,41 +310,6 @@ class _HomePageState extends State<HomePage> {
           ),
           new ListTile(
             title: new Text(
-              'Obitos',
-              style: TextStyle(
-                fontWeight: FontWeight.w400,
-                color: Colors.black,
-                fontSize: 15,
-              ),
-            ),
-            onTap: () {
-              Navigator.of(context).pop();
-              Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          new MultiFormObitos()));
-            },
-          ),
-          new ListTile(
-            title: new Text(
-              'Historico',
-              style: TextStyle(
-                fontWeight: FontWeight.w400,
-                color: Colors.black,
-                fontSize: 15,
-              ),
-            ),
-            onTap: () {
-              Navigator.of(context).pop();
-              Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                      builder: (BuildContext context) => new Historico()));
-            },
-          ),
-          new ListTile(
-            title: new Text(
               '',
               style: TextStyle(
                 fontWeight: FontWeight.w400,
@@ -398,25 +359,23 @@ class _HomePageState extends State<HomePage> {
                       builder: (BuildContext context) => new Historico()));
             },
           ),
-
         ],
       )),
       resizeToAvoidBottomInset: true,
       body: Container(
-                    decoration: new BoxDecoration(
-                gradient: new LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color.fromARGB(255, 173,216,230),
-                    Color.fromARGB(255, 65,105,225)
-                  ],
-                )),
+        decoration: new BoxDecoration(
+            gradient: new LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color.fromARGB(255, 173, 216, 230),
+            Color.fromARGB(255, 65, 105, 225)
+          ],
+        )),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            
             /*Container(
               margin: new EdgeInsets.only(
                 left: MediaQuery.of(context).size.width * 0.0,
@@ -467,8 +426,8 @@ class _HomePageState extends State<HomePage> {
                   end: Alignment.bottomRight,
                   stops: [0.3, 1],
                   colors: [
-                     Colors.black38,
-                     Colors.black38,
+                    Colors.black38,
+                    Colors.black38,
                   ],
                 ),
                 borderRadius: BorderRadius.all(
@@ -486,7 +445,7 @@ class _HomePageState extends State<HomePage> {
                         size: 50,
                       ),
                       Text(
-                        "           Ficha A             ",
+                        "      Ficha A - Cadastral      ",
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Colors.white,
@@ -523,8 +482,8 @@ class _HomePageState extends State<HomePage> {
                   end: Alignment.bottomRight,
                   stops: [0.3, 1],
                   colors: [
-                     Colors.black38,
-                     Colors.black38,
+                    Colors.black38,
+                    Colors.black38,
                   ],
                 ),
                 borderRadius: BorderRadius.all(
@@ -537,12 +496,12 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Icon(
-                        Icons.people,
+                        Icons.today,
                         color: Colors.white70,
                         size: 50,
                       ),
                       Text(
-                        "           Ficha D             ",
+                        "         Ficha D - Diária         ",
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Colors.white,
@@ -579,8 +538,8 @@ class _HomePageState extends State<HomePage> {
                   end: Alignment.bottomRight,
                   stops: [0.3, 1.0],
                   colors: [
-                     Colors.black38,
-                     Colors.black38,
+                    Colors.black38,
+                    Colors.black38,
                   ],
                 ),
                 borderRadius: BorderRadius.all(
@@ -598,7 +557,7 @@ class _HomePageState extends State<HomePage> {
                         size: 50,
                       ),
                       Text(
-                        "           Historico             ",
+                        "              Histórico                ",
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Colors.white,

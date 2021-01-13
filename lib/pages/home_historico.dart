@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login_demo/map.page.dart';
+import 'package:flutter_login_demo/pages/fichaA_historico.dart';
+import 'package:flutter_login_demo/pages/fichaD_historico.dart';
 import 'package:flutter_login_demo/pages/home_cadastro.dart';
 import 'package:flutter_login_demo/pages/home_fichad.dart';
 import 'package:flutter_login_demo/pages/home_historico.dart';
@@ -137,25 +139,23 @@ class _HistoricoState extends State<Historico> {
         ),
         elevation: 10,
         backgroundColor: Colors.teal,
-        actions: [
-        ],
+        actions: [],
       ),
       resizeToAvoidBottomInset: true,
       body: Container(
-                    decoration: new BoxDecoration(
-                gradient: new LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color.fromARGB(255, 173,216,230),
-                    Color.fromARGB(255, 65,150,150)
-                  ],
-                )),
+        decoration: new BoxDecoration(
+            gradient: new LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color.fromARGB(255, 173, 216, 230),
+            Color.fromARGB(255, 65, 150, 150)
+          ],
+        )),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-
             Padding(
               padding: EdgeInsets.fromLTRB(0, 20, 0, 30),
               child: CircleAvatar(
@@ -181,8 +181,8 @@ class _HistoricoState extends State<Historico> {
                   end: Alignment.bottomRight,
                   stops: [0.3, 1],
                   colors: [
-                     Colors.black38,
-                     Colors.black38,
+                    Colors.black38,
+                    Colors.black38,
                   ],
                 ),
                 borderRadius: BorderRadius.all(
@@ -200,7 +200,7 @@ class _HistoricoState extends State<Historico> {
                         size: 50,
                       ),
                       Text(
-                        "           Ficha A             ",
+                        "       Ficha A - Cadastral     ",
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Colors.white,
@@ -213,7 +213,7 @@ class _HistoricoState extends State<Historico> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Cadastro()),
+                      MaterialPageRoute(builder: (context) => HistoricoA()),
                     );
                   },
                 ),
@@ -237,8 +237,8 @@ class _HistoricoState extends State<Historico> {
                   end: Alignment.bottomRight,
                   stops: [0.3, 1.0],
                   colors: [
-                     Colors.black38,
-                     Colors.black38,
+                    Colors.black38,
+                    Colors.black38,
                   ],
                 ),
                 borderRadius: BorderRadius.all(
@@ -256,7 +256,7 @@ class _HistoricoState extends State<Historico> {
                         size: 50,
                       ),
                       Text(
-                        "           Ficha D             ",
+                        "          Ficha D - Diária         ",
                         style: TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Colors.white,
@@ -269,7 +269,7 @@ class _HistoricoState extends State<Historico> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => FichaD()),
+                      MaterialPageRoute(builder: (context) => HistoricoD()),
                     );
                   },
                 ),

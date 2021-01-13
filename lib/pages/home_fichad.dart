@@ -21,8 +21,6 @@ class _StepperState extends State<FichaD> {
   TextEditingController _controller = TextEditingController();
   TextEditingController _controller1 = TextEditingController();
   TextEditingController _controller2 = TextEditingController();
-
-  /// CRIAR UM CONTROLER PRA CADA BAGULHO
   TextEditingController _controller3 = TextEditingController();
   TextEditingController _controller4 = TextEditingController();
   TextEditingController _controller5 = TextEditingController();
@@ -82,7 +80,7 @@ class _StepperState extends State<FichaD> {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: new AppBar(
-        title: Text('              Ficha D',
+        title: Text('            Ficha Diária',
                       style: TextStyle(
                 fontWeight: FontWeight.w300,
                 color: Colors.white60,
@@ -333,6 +331,72 @@ class _StepperState extends State<FichaD> {
         });
   }
 
+  Future<bool> updateDialog2(BuildContext context, selectedDoc) async {
+      return showDialog(
+       context: context,
+       barrierDismissible: false,
+       builder: (BuildContext context){
+         return AlertDialog(
+           title: Text('Editar', style: TextStyle(fontSize: 15.0)),
+           content: Column(
+             children: <Widget>[
+               TextField(
+               decoration: InputDecoration(hintText: 'Nome'),
+               onChanged: (value){
+                 this.Profissionalf = value;
+               }
+               ),
+               TextField(
+                     decoration: InputDecoration(hintText: 'Cns'),
+               onChanged: (value){
+                 this.CNSdoProfissional = value;
+               }
+
+               ),
+
+             ],
+             ),
+             actions: <Widget>[
+               FlatButton(
+                 child: Text('Editar'),
+                 textColor: Colors.blue,
+                 onPressed: (){
+                        Navigator.of(context).pop();
+                        crudObj.updateData2(selectedDoc,{
+                          'Nome do Profissional': this.Profissionalf,
+                          'Cns do profissional': this.CNSdoProfissional,
+                        }).then((result){
+
+                        }).catchError((e){
+                            print(e);
+                        });
+
+                 }
+                 ),
+
+                FlatButton(
+                 child: Text('Voltar'),
+                 textColor: Colors.blue,
+                 onPressed: (){
+                        Navigator.of(context).pop();
+                 }
+                 
+               
+                 ),
+
+             ],
+
+         );
+
+       }
+
+
+
+       );
+
+
+   }
+
   Widget _showForm() {
     return new PageView(
       children: <Widget>[
@@ -398,21 +462,21 @@ class _StepperState extends State<FichaD> {
 
         // CHAMAR TELA 2
         Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             new Column(children: <Widget>[
               // TITULO
 
-             /* Container(
+              Container(
                 margin: new EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.05,
-                  bottom: MediaQuery.of(context).size.height * 0.0,
+                  top: MediaQuery.of(context).size.height * 0.0,
+                  bottom: MediaQuery.of(context).size.height * 0.05,
                 ),
                 child: Text(
-                  "Registro de Atividades",
+                  "Registro de Ocorrências",
                   style: TextStyle(fontSize: 20),
                 ),
-              ),*/
+              ),
 
               // IMPULT NUMEROS
 
@@ -423,7 +487,7 @@ class _StepperState extends State<FichaD> {
                   children: <Widget>[
                     Container(
                       margin: new EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width * 0.0,
+                        left: MediaQuery.of(context).size.width * 0.01,
                         right: MediaQuery.of(context).size.width * 0.1,
                       ),
                       child: Text(
@@ -1090,7 +1154,7 @@ class _StepperState extends State<FichaD> {
                         right: MediaQuery.of(context).size.width * 0.1,
                       ),
                       child: Text(
-                        "Atend/grupo/educ.em saude         ",
+                        "Atend/grupo/educ.em saude          ",
                         style: TextStyle(fontSize: 16),
                       ),
                     ),
@@ -1390,6 +1454,8 @@ class _StepperState extends State<FichaD> {
             ]),
           ],
         ),
+
+
         // CHAMAR TELA 2
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -1412,7 +1478,7 @@ class _StepperState extends State<FichaD> {
 
               Container(
                 padding: const EdgeInsets.all(20.0),
-                alignment: Alignment.center,
+                alignment: Alignment.topLeft,
                 child: Row(
                   children: <Widget>[
                     Container(
@@ -1937,7 +2003,7 @@ class _StepperState extends State<FichaD> {
                       // bottom: MediaQuery.of(context).size.height * 0.0,
                     ),
                     child: Text(
-                      " Infarto agudo da miocárdia          ",
+                      " Infarto agudo do miocárdio          ",
                       style: TextStyle(fontSize: 16),
                     ),
                   ),
@@ -2084,7 +2150,7 @@ class _StepperState extends State<FichaD> {
           body: Container(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Container(
                   margin: new EdgeInsets.only(
@@ -2103,7 +2169,7 @@ class _StepperState extends State<FichaD> {
                       "Clique caso ocorrido:",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        color: Colors.black,
+                        color: Colors.black87,
                         fontSize: 20,
                       ),
                       textAlign: TextAlign.left,
@@ -2127,8 +2193,8 @@ class _StepperState extends State<FichaD> {
                       end: Alignment.bottomRight,
                       stops: [0.3, 1],
                       colors: [
-                    Colors.indigoAccent,
-                    Colors.indigoAccent,
+                    Colors.indigo,
+                    Colors.indigo,
                       ],
                     ),
                     borderRadius: BorderRadius.all(
@@ -2137,17 +2203,18 @@ class _StepperState extends State<FichaD> {
                   ),
                   child: SizedBox.expand(
                     child: FlatButton(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
+
                           Text(
-                            "Obitos",
+                            "   Obitos",
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               color: Colors.white,
                               fontSize: 22,
                             ),
-                            textAlign: TextAlign.justify,
+                            textAlign: TextAlign.center,
                           ),
                         ],
                       ),
@@ -2179,8 +2246,8 @@ class _StepperState extends State<FichaD> {
                       end: Alignment.bottomRight,
                       stops: [0.3, 1],
                       colors: [
-                     Colors.indigoAccent,
-                    Colors.indigoAccent,
+                     Colors.indigo,
+                    Colors.indigo,
                       ],
                     ),
                     borderRadius: BorderRadius.all(
@@ -2190,8 +2257,9 @@ class _StepperState extends State<FichaD> {
                   child: SizedBox.expand(
                     child: FlatButton(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
+
                           Text(
                             "Hospitalizações",
                             style: TextStyle(
@@ -2199,7 +2267,7 @@ class _StepperState extends State<FichaD> {
                               color: Colors.white,
                               fontSize: 22,
                             ),
-                            textAlign: TextAlign.left,
+                            textAlign: TextAlign.center,
                           ),
                         ],
                       ),
@@ -2239,7 +2307,7 @@ class _StepperState extends State<FichaD> {
                   ),
                   child: SizedBox.expand(
                     child: FlatButton(
-                                        child: Row(
+                    child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       /*Icon(
@@ -2316,8 +2384,9 @@ class _StepperState extends State<FichaD> {
           ),
         ),
       ],
-      scrollDirection: Axis.horizontal,
-      physics: ClampingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      pageSnapping : false ,
     );
   }
 }
+

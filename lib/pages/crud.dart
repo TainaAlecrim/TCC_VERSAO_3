@@ -12,12 +12,86 @@ Future<void> addData(CadastroData) async {
    });
 }
 
+getData() async{
+
+ return await Firestore.instance.collection('PACIENTE').snapshots();
+
+}
+
+updateData( selectedDoc,newvalues){
+         Firestore.instance
+         .collection('PACIENTE')
+         .document(selectedDoc)
+         .updateData(newvalues)
+         .catchError((e){
+         print(e);
+         });
+
+
+}
+
+deleteData(docId){
+  Firestore.instance.
+  collection('PACIENTE')
+  .document(docId)
+  .delete()
+  .catchError((e){
+    print(e); 
+  });
+}
+
+viewData(selectedDoc, ){
+    Firestore.instance
+    .collection('PACIENTE')
+    .document(selectedDoc).snapshots();
+
+
+
+}
+
 Future<void> addFicha(FichaD) async {
 
    Firestore.instance.collection('FICHAD').add(FichaD).catchError((e){
           print(e);
 
    });
+}
+
+getData2() async{
+
+ return await Firestore.instance.collection('FICHAD').snapshots();
+
+}
+
+updateData2( selectedDoc,newvalues){
+         Firestore.instance
+         .collection('FICHAD')
+         .document(selectedDoc)
+         .updateData(newvalues)
+         .catchError((e){
+         print(e);
+         });
+
+
+}
+
+deleteData2(docId){
+  Firestore.instance.
+  collection('FICHAD')
+  .document(docId)
+  .delete()
+  .catchError((e){
+    print(e); 
+  });
+}
+
+viewData2(selectedDoc, ){
+    Firestore.instance
+    .collection('FICHAD')
+    .document(selectedDoc).snapshots();
+
+
+
 }
 
 Future<void> addHospitalizacoes(Hospitalizacoes) async {

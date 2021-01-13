@@ -51,6 +51,8 @@ class _StepperState extends State<Cadastro> {
   FocusNode _focusNode = new FocusNode();
   
 final _formkey = GlobalKey<FormState>();
+final _formkey2 = GlobalKey<FormState>();
+
   int _currentStep = 0;
   int group = 1;
   int sexualidade = 2;
@@ -106,7 +108,7 @@ final _formkey = GlobalKey<FormState>();
       resizeToAvoidBottomPadding: true,
       appBar: new AppBar(
         title: Text(
-          '              Ficha A',
+          '              Cadastro',
           style: TextStyle(
             fontWeight: FontWeight.w300,
             color: Colors.white60,
@@ -143,8 +145,12 @@ final _formkey = GlobalKey<FormState>();
                 Icons.card_membership,
                 color: Colors.grey,
               )),
-          validator: (value) =>
-              value.isEmpty ? 'O campo CNS não pode ficar vazio' : null,
+              validator: (value) {
+              if (value.isEmpty) return 'O campo CNS é obrigatório';
+              if (value.length == null)
+                return "O campo CNS é obrigatório";
+              return null;
+          },
           onChanged: (value) {
             this.CNSn = value;
           },
@@ -182,9 +188,9 @@ final _formkey = GlobalKey<FormState>();
         padding: const EdgeInsets.fromLTRB(40.0, 0.0, 0.0, 0.0),
         child: DatePickerWidget(
           looping: false, // default is not looping
-          firstDate: DateTime(1940, 01, 01),
+          firstDate: DateTime(1900, 01, 01),
           lastDate: DateTime(2100, 1, 1),
-          initialDate: DateTime(1940, 01, 01),
+          initialDate: DateTime(1900, 01, 01),
           onChange: (DateTime newDate, _) =>_selectedDate = newDate,
           pickerTheme: DateTimePickerTheme(
             itemTextStyle: TextStyle(color: Colors.black, fontSize: 14),
@@ -229,7 +235,7 @@ final _formkey = GlobalKey<FormState>();
             'Nacionalidade:',
             style: TextStyle(
               fontWeight: FontWeight.w800,
-              color: Colors.black,
+              color: Colors.black87,
               fontSize: 16,
             ),
           ),
@@ -306,7 +312,7 @@ final _formkey = GlobalKey<FormState>();
             'Sexo:',
                         style: TextStyle(
               fontWeight: FontWeight.w800,
-              color: Colors.black,
+              color: Colors.black87,
               fontSize: 16,
             ),
           ),
@@ -414,7 +420,7 @@ final _formkey = GlobalKey<FormState>();
               color: Colors.grey,
             )),
         validator: (value) => value.isEmpty
-            ? 'O campo Numero Residencial não pode ficar vazio'
+            ? 'O campo não pode ficar vazio'
             : null,
         onChanged: (value) {
           this.numeroresidencia = value;
@@ -459,7 +465,7 @@ final _formkey = GlobalKey<FormState>();
               color: Colors.grey,
             )),
         validator: (value) => value.isEmpty
-            ? 'O campo Numero Residencial não pode ficar vazio'
+            ? 'O campo não pode ficar vazio'
             : null,
         onChanged: (value) {
           this.cep = value;
@@ -520,10 +526,10 @@ final _formkey = GlobalKey<FormState>();
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            'Situação de moradia e saneamento',
+            'Tipo de casa:',
                         style: TextStyle(
               fontWeight: FontWeight.w800,
-              color: Colors.black,
+              color: Colors.black87,
               fontSize: 16,
             ),
           ),
@@ -635,13 +641,13 @@ final _formkey = GlobalKey<FormState>();
         autofocus: false,
         keyboardType: TextInputType.number,
         decoration: new InputDecoration(
-            hintText: 'Nº de comodos',
+            hintText: 'Nº de cômodos da casa',
             icon: new Icon(
               Icons.format_list_numbered_rtl,
               color: Colors.grey,
             )),
         validator: (value) => value.isEmpty
-            ? 'O campo Numero Residencial não pode ficar vazio'
+            ? 'O campo não pode ficar vazio'
             : null,
         onChanged: (value) {
           this.comodos = value;
@@ -667,7 +673,7 @@ final _formkey = GlobalKey<FormState>();
             'Destino do lixo:',
                         style: TextStyle(
               fontWeight: FontWeight.w800,
-              color: Colors.black,
+              color: Colors.black87,
               fontSize: 16,
             ),
           ),
@@ -769,7 +775,7 @@ final _formkey = GlobalKey<FormState>();
             'Tratamento de água no domicílio:',
                         style: TextStyle(
               fontWeight: FontWeight.w800,
-              color: Colors.black,
+              color: Colors.black87,
               fontSize: 16,
             ),
           ),
@@ -870,7 +876,7 @@ final _formkey = GlobalKey<FormState>();
             'Abastecimento de Agua:',
                         style: TextStyle(
               fontWeight: FontWeight.w800,
-              color: Colors.black,
+              color: Colors.black87,
               fontSize: 16,
             ),
           ),
@@ -949,10 +955,10 @@ final _formkey = GlobalKey<FormState>();
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            'Destino do lixo:',
+            'Destino de Fezes e Urinas:',
                         style: TextStyle(
               fontWeight: FontWeight.w800,
-              color: Colors.black,
+              color: Colors.black87,
               fontSize: 16,
             ),
           ),
@@ -1036,7 +1042,7 @@ final _formkey = GlobalKey<FormState>();
             'Possui energia eletrica:',
                        style: TextStyle(
               fontWeight: FontWeight.w800,
-              color: Colors.black,
+              color: Colors.black87,
               fontSize: 16,
             ),
           ),
@@ -1096,7 +1102,7 @@ final _formkey = GlobalKey<FormState>();
             'Alguém da familia possui plano de saúde:',
                         style: TextStyle(
               fontWeight: FontWeight.w800,
-              color: Colors.black,
+              color: Colors.black87,
               fontSize: 16,
             ),
           ),
@@ -1151,7 +1157,7 @@ final _formkey = GlobalKey<FormState>();
               color: Colors.grey,
             )),
         validator: (value) => value.isEmpty
-            ? 'O campo Numero Residencial não pode ficar vazio'
+            ? 'O campo não pode ficar vazio'
             : null,
         onChanged: (value) {
           this.nomeplanodesaude = value;
@@ -1162,19 +1168,19 @@ final _formkey = GlobalKey<FormState>();
 
   Widget NumerodePessoasPlano() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 0, 150, 0),
+      padding: const EdgeInsets.fromLTRB(0, 0, 100, 0),
       child: new TextFormField(
         maxLines: 1,
         keyboardType: TextInputType.number,
         autofocus: false,
         decoration: new InputDecoration(
-            hintText: 'Quantas utilizam ?',
+            hintText: 'Quantas utilizam o plano ?',
             icon: new Icon(
               Icons.format_list_numbered_rtl,
               color: Colors.grey,
             )),
         validator: (value) => value.isEmpty
-            ? 'O campo Numero Residencial não pode ficar vazio'
+            ? 'O campo não pode ficar vazio'
             : null,
         onChanged: (value) {
           this.numerodepessoasplano = value;
@@ -1199,7 +1205,7 @@ final _formkey = GlobalKey<FormState>();
             'Em caso de doença procurar:',
                         style: TextStyle(
               fontWeight: FontWeight.w800,
-              color: Colors.black,
+              color: Colors.black87,
               fontSize: 16,
             ),
           ),
@@ -1300,7 +1306,7 @@ final _formkey = GlobalKey<FormState>();
             'Participa de grupos comunitarios:',
                         style: TextStyle(
               fontWeight: FontWeight.w800,
-              color: Colors.black,
+              color: Colors.black87,
               fontSize: 16,
             ),
           ),
@@ -1382,7 +1388,7 @@ final _formkey = GlobalKey<FormState>();
             'Meio de trasporte que mais utiliza:',
                         style: TextStyle(
               fontWeight: FontWeight.w800,
-              color: Colors.black,
+              color: Colors.black87,
               fontSize: 16,
             ),
           ),
@@ -1468,6 +1474,7 @@ final _formkey = GlobalKey<FormState>();
               Radio(
                   value: 4,
                   groupValue: transporte,
+                  
                   onChanged: (value) {
                     print(value);
                     setState(() {
@@ -1479,6 +1486,7 @@ final _formkey = GlobalKey<FormState>();
                 " Outro ",
                 style: new TextStyle(fontSize: 14),
               ),
+              
             ],
           ),
         ],
@@ -1506,7 +1514,7 @@ final _formkey = GlobalKey<FormState>();
             'Esgoto': this.esgoto1,
             'Uf': this._ufresidencial,
             'Raça': this._raca,
-            'Numero Residencial': this.endereco,
+            'Numero Residencial': this.numeroresidencia,
             'Endereço': this.endereco,
             'Bairro': this.bairro,
             'Cep': this.cep,
@@ -1547,6 +1555,93 @@ final _formkey = GlobalKey<FormState>();
         });
   }
 
+  Future<bool> updateDialog(BuildContext context, selectedDoc) async {
+      return showDialog(
+       context: context,
+       barrierDismissible: false,
+       builder: (BuildContext context){
+         return AlertDialog(
+           title: Text('Editar', style: TextStyle(fontSize: 15.0)),
+           content: Column(
+             children: <Widget>[
+               TextField(
+               decoration: InputDecoration(hintText: 'Nome'),
+               onChanged: (value){
+                 this.Nome = value;
+               }
+               ),
+               TextField(
+               decoration: InputDecoration(hintText: 'Cns'),
+               onChanged: (value){
+                 this.CNSn = value;
+               }
+
+               ),
+                /*              TextField(
+                 decoration: InputDecoration(hintText: 'Nome da Mãe'),
+               onChanged: (value){
+                 this.mae = value;
+               }
+
+               ),
+                TextField(
+               decoration: InputDecoration(hintText: 'Nacionalidade'),
+               onChanged: (value){
+                 this.nacionalidade1 = value;
+               }
+
+               ),
+                              TextField(
+                     decoration: InputDecoration(hintText: 'Sexo'),
+               onChanged: (value){
+                 this.sexo1 = value;
+               }
+
+               ),*/
+
+             ],
+             ),
+             actions: <Widget>[
+               FlatButton(
+                 child: Text('Salvar'),
+                 textColor: Colors.blue,
+                 onPressed: (){
+                        Navigator.of(context).pop();
+                        crudObj.updateData(selectedDoc,{
+                          'Nome': this.Nome,
+                          'Cnsn': this.CNSn,
+                        }).then((result){
+
+                        }).catchError((e){
+                            print(e);
+                        });
+
+                 }
+                 
+                 ),
+                                FlatButton(
+                 child: Text('Voltar'),
+                 textColor: Colors.blue,
+                 onPressed: (){
+                        Navigator.of(context).pop();
+                 }
+                 
+               
+                 ),
+
+             ],
+
+         );
+
+       }
+
+
+
+       );
+
+
+   }
+
   PageController _pageController;
 
   @override
@@ -1567,10 +1662,10 @@ final _formkey = GlobalKey<FormState>();
       children: <Widget>[
         Container(
             margin: new EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.05,
-              right: MediaQuery.of(context).size.width * 0.05,
-              top: MediaQuery.of(context).size.height * 0.0,
-              bottom: MediaQuery.of(context).size.height * 0.1,
+              left: MediaQuery.of(context).size.width * 0.06,
+              right: MediaQuery.of(context).size.width * 0.06,
+              top: MediaQuery.of(context).size.height * 0.02,
+              bottom: MediaQuery.of(context).size.height * 0.02,
             ),
             padding: EdgeInsets.all(0.0),
             
@@ -1582,12 +1677,19 @@ final _formkey = GlobalKey<FormState>();
                   CNS(),
                   NomeCadastro(),
                   NomeMae(),
+        
                   Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                    Text ("Nascimento:",
+                    style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    color: Colors.black87,
+                    fontSize: 16,
+                    ),),
                     Expanded(
                       child: DataNascimento(),
                     ),
                     SizedBox(
-                      width: 30,
+                      width: 3,
                     ),
                   ]),
                   Endereco(),
@@ -1615,10 +1717,10 @@ final _formkey = GlobalKey<FormState>();
                 ])),
         Container(
           margin: new EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.1,
-            right: MediaQuery.of(context).size.width * 0.1,
+            left: MediaQuery.of(context).size.width * 0.05,
+            right: MediaQuery.of(context).size.width * 0.05,
             top: MediaQuery.of(context).size.height * 0.0,
-            bottom: MediaQuery.of(context).size.height * 0.2,
+            bottom: MediaQuery.of(context).size.height * 0.0,
           ),
           padding: EdgeInsets.all(0.0),
           child: new Column(
@@ -1649,7 +1751,7 @@ final _formkey = GlobalKey<FormState>();
                         "Raça:                    ",
                                     style: TextStyle(
               fontWeight: FontWeight.w800,
-              color: Colors.black,
+              color: Colors.black87,
               fontSize: 16,
             ),
                       ),
@@ -1660,14 +1762,16 @@ final _formkey = GlobalKey<FormState>();
                 PlanodeSaude(),
                 NomePlanoSaude(),
                 NumerodePessoasPlano(),
+                Comodos(),
+
               ]),
         ),
         Container(
           margin: new EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.1,
-            right: MediaQuery.of(context).size.width * 0.1,
-            top: MediaQuery.of(context).size.height * 0.0,
-            bottom: MediaQuery.of(context).size.height * 0.2,
+            left: MediaQuery.of(context).size.width * 0.05,
+            right: MediaQuery.of(context).size.width * 0.05,
+            top: MediaQuery.of(context).size.height * 0.05,
+            bottom: MediaQuery.of(context).size.height * 0.0,
           ),
           padding: EdgeInsets.all(0.0),
           child: new Column(
@@ -1688,51 +1792,22 @@ final _formkey = GlobalKey<FormState>();
                     textAlign: TextAlign.justify,
                   ),*/
                 ),
-                Moradia(),
-                Comodos(),
-                EnergiaEletrica(),
-              ]),
-        ),
-        Container(
-          margin: new EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.1,
-            right: MediaQuery.of(context).size.width * 0.1,
-            top: MediaQuery.of(context).size.height * 0.0,
-            bottom: MediaQuery.of(context).size.height * 0.2,
-          ),
-          padding: EdgeInsets.all(0.0),
-          child: new Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Container(
-                  margin: new EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.0,
-                    bottom: MediaQuery.of(context).size.height * 0.0,
-                  ),
-                  /*child: Text(
-                    "Cadastro",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w300,
-                      color: Colors.black,
-                      fontSize: 27,
-                    ),
-                    textAlign: TextAlign.justify,
-                  ),*/
-                ),
+
+                
                 TratamendodeAgua(),
-                DestinodoLixo(),
+                Moradia(),
               ]),
         ),
         Container(
           margin: new EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.1,
-            right: MediaQuery.of(context).size.width * 0.1,
+            left: MediaQuery.of(context).size.width * 0.05,
+            right: MediaQuery.of(context).size.width * 0.05,
             top: MediaQuery.of(context).size.height * 0.0,
-            bottom: MediaQuery.of(context).size.height * 0.1,
+            bottom: MediaQuery.of(context).size.height * 0.0,
           ),
           padding: EdgeInsets.all(0.0),
           child: new Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
                   margin: new EdgeInsets.only(
@@ -1749,21 +1824,53 @@ final _formkey = GlobalKey<FormState>();
                     textAlign: TextAlign.justify,
                   ),*/
                 ),
+                EnergiaEletrica(),
+                DestinodoLixo(),
                 Abastecimento(),
+              ]),
+        ),
+        Container(
+          margin: new EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * 0.05,
+            right: MediaQuery.of(context).size.width * 0.05,
+            top: MediaQuery.of(context).size.height * 0.0,
+            bottom: MediaQuery.of(context).size.height * 0.0,
+          ),
+          padding: EdgeInsets.all(0.0),
+          child: new Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  margin: new EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.0,
+                    bottom: MediaQuery.of(context).size.height * 0.0,
+                  ),
+                  /*child: Text(
+                    "Cadastro",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black,
+                      fontSize: 27,
+                    ),
+                    textAlign: TextAlign.justify,
+                  ),*/
+                ),
+                
                 DestinodeFezeseUrina(),
                 Comunitario(),
+                Doenca(),
               ]),
         ),
         Container(
           margin: new EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.1,
-            right: MediaQuery.of(context).size.width * 0.1,
+            left: MediaQuery.of(context).size.width * 0.05,
+            right: MediaQuery.of(context).size.width * 0.05,
             top: MediaQuery.of(context).size.height * 0.0,
-            bottom: MediaQuery.of(context).size.height * 0.05,
+            bottom: MediaQuery.of(context).size.height * 0.0,
           ),
           padding: EdgeInsets.all(0.0),
           child: new Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
                   margin: new EdgeInsets.only(
@@ -1796,6 +1903,12 @@ final _formkey = GlobalKey<FormState>();
                       textAlign: TextAlign.left,
                     ),
                     onPressed: () {
+                      /*if (_formkey2.currentState.validate()){
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                          content: Text("TESTE"),
+                          duration: Duration(seconds: 3), 
+                        ));
+                      }*/
                       Navigator.of(context).pop();
 
                       Map<String, dynamic> CadastroData = {
@@ -1812,7 +1925,7 @@ final _formkey = GlobalKey<FormState>();
                         'Esgoto': this.esgoto1,
                         'Uf': this._ufresidencial,
                         'Raça': this._raca,
-                        'Numero Residencial': this.endereco,
+                        'Numero Residencial': this.numeroresidencia,
                         'Endereço': this.endereco,
                         'Bairro': this.bairro,
                         'Cep': this.cep,
@@ -1822,8 +1935,7 @@ final _formkey = GlobalKey<FormState>();
                         'Participa de grupos comunitários': this.comunitario1,
                         'Em caso de doença procura': this.doenca1,
                         'Meio de trasporte': this.transporte1,
-                        'Quantas pessoas utilizam o plano':
-                            this.numerodepessoasplano,
+                        'Quantas pessoas utilizam o plano': this.numerodepessoasplano,
                         'Data de Nascimento': this._selectedDate,
                       };
 
@@ -1836,8 +1948,8 @@ final _formkey = GlobalKey<FormState>();
               ]),
         ),
       ],
-      scrollDirection: Axis.horizontal,
-      physics: ClampingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      pageSnapping : false ,
     );
   }
 }
